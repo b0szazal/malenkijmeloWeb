@@ -11,3 +11,16 @@ C:\Users\User\OneDrive\Asztali gép\Vizsgaremek\Forráskód\Share\MalenkijMelo.S
 C:\Users\User\OneDrive\Asztali gép\Vizsgaremek\Forráskód\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\refint\MalenkijMelo.Share.dll
 C:\Users\User\OneDrive\Asztali gép\Vizsgaremek\Forráskód\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.pdb
 C:\Users\User\OneDrive\Asztali gép\Vizsgaremek\Forráskód\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\ref\MalenkijMelo.Share.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\bin\Release\net9.0\MalenkijMelo.Share.deps.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\bin\Release\net9.0\MalenkijMelo.Share.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\bin\Release\net9.0\MalenkijMelo.Share.pdb
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.csproj.AssemblyReference.cache
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.AssemblyInfoInputs.cache
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.AssemblyInfo.cs
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.csproj.CoreCompileInputs.cache
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.sourcelink.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\refint\MalenkijMelo.Share.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\MalenkijMelo.Share.pdb
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Share\MalenkijMelo.Share\obj\Release\net9.0\ref\MalenkijMelo.Share.dll

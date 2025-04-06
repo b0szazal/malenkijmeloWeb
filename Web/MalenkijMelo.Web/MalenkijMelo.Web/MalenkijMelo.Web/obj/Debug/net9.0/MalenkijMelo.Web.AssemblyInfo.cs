@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MalenkijMelo.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8868483d73fcb77c9fc390767c3341c7e130f396")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d556954eae74a896093a97e595854436faee9196")]
 [assembly: System.Reflection.AssemblyProductAttribute("MalenkijMelo.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MalenkijMelo.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

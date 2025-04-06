@@ -1,0 +1,16 @@
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\bin\Release\net9.0\MalenkijMelo.Services.deps.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\bin\Release\net9.0\MalenkijMelo.Services.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\bin\Release\net9.0\MalenkijMelo.Services.pdb
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\bin\Release\net9.0\MalenkijMelo.Share.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\bin\Release\net9.0\MalenkijMelo.Share.pdb
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.csproj.AssemblyReference.cache
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.AssemblyInfoInputs.cache
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.AssemblyInfo.cs
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.csproj.CoreCompileInputs.cache
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.sourcelink.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\Malenkij.EFB95FA6.Up2Date
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\refint\MalenkijMelo.Services.dll
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\MalenkijMelo.Services.pdb
+C:\Users\User\Source\Repos\malenkijmeloWeb\Share\MalenkijMelo.Services\MalenkijMelo.Services\obj\Release\net9.0\ref\MalenkijMelo.Services.dll

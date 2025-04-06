@@ -1,0 +1,2 @@
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Release\net9.0\staticwebassets.build.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Release\net9.0\staticwebassets.build.json

@@ -1,0 +1,62 @@
+﻿@using System.ComponentModel
+@using Blazored.LocalStorage
+@using MalenkijMelo.Share.Models
+
+@inherits ComponentBase
+
+@code {
+    [Inject]
+    public ILocalStorageService? LocalStorage { get; set; }
+
+    [Inject]
+    public NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    public IUserHttpClientService? UserHttpService { get; set; }
+
+    public static User? CurrentUser { get; set; }
+
+    protected void Redirect(string uri)
+    {
+        try
+        {
+            NavigationManager!.NavigateTo(uri);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    public static bool IsUserLoggedIn { get; set; }
+    public static bool IsRoleEmployee { get; set; }
+    public static bool IsRoleEmployer { get; set; }
+
+    protected override void OnInitialized()
+    {
+        UserHttpService = new UserHttpClientService(new());
+        base.OnInitialized();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        string? id = await LocalStorage!.GetItemAsStringAsync("id");
+        IsUserLoggedIn = id is not null;
+
+        // Getting user data from local storage
+        if (IsUserLoggedIn! && id != string.Empty)
+        {
+            await Task.Run(() =>
+            {
+                CurrentUser = UserHttpService!.GetByIdAsync(id!).Result;
+                if (CurrentUser.Id != "")
+                {
+                    IsRoleEmployee = CurrentUser!.Id[0] == 'd';
+                    IsRoleEmployer = CurrentUser!.Id[0] == 'm';
+                }
+            });
+        }
+        StateHasChanged();
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

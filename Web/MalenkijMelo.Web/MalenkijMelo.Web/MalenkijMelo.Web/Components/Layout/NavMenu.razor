@@ -1,0 +1,32 @@
+﻿@inherits BasePage
+
+<MudDrawer @bind-Open="IsNavbarOpen">
+    <MudDrawerHeader>
+        <MudImage Src="Images/mlenkij-mel-high-resolution-logo-transparent.png"
+        Alt="*Logo did not load"
+        Width="@logoWidth"
+        Height="@logoHeight"
+        Class="mx-auto"/>
+    </MudDrawerHeader>
+    <MudNavMenu>
+        <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home">Kezdőlap</MudNavLink>
+        @if (IsUserLoggedIn)
+        {
+            @if (IsRoleEmployee)
+            {
+                <MudNavLink Href="/jobs" Icon="@Icons.Material.Outlined.Work">Munkalehetőségek</MudNavLink>
+                <MudNavLink Href="/applications" Icon="@Icons.Material.Outlined.Checklist">Jelentkezéseim</MudNavLink>
+            }
+            else if(IsRoleEmployer)
+            {
+                <MudNavLink Href="/jobs/new-job" Icon="@Icons.Material.Filled.PostAdd">Új munkalehetőség</MudNavLink>
+                <MudNavLink Href="/showMyJobs" Icon="@Icons.Material.Filled.Work">Munkáim</MudNavLink>
+            }
+        }
+        <MudNavLink Href="/about" Icon="@Icons.Material.Filled.Info">Tudnivalók</MudNavLink>
+        @if (IsUserLoggedIn)
+        {
+            <MudNavLink Href="/logout" Icon="@Icons.Material.Filled.Logout">Kijelentkezés</MudNavLink>
+        }
+    </MudNavMenu>
+</MudDrawer>

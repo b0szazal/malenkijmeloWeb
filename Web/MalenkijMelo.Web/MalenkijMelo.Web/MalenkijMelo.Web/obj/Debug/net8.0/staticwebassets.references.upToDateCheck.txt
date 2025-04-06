@@ -1,0 +1,3 @@
+C:\Users\User\OneDrive\Asztali gép\Vizsgaremek\Forráskód\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\User\OneDrive\Asztali gép\VizsgaRemek\Forráskód\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\User\OneDrive\Asztali gép\VizsgaRemek\Forráskód\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net8.0\staticwebassets.build.json

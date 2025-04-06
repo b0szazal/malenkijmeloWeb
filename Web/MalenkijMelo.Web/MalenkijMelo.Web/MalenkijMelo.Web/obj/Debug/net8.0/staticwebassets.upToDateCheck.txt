@@ -1,0 +1,7 @@
+wwwroot\animations.css
+wwwroot\app.css
+wwwroot\bootstrap\bootstrap.min.css
+wwwroot\bootstrap\bootstrap.min.css.map
+wwwroot\favicon.png
+wwwroot\Images\mlenkij-mel-high-resolution-logo.png
+wwwroot\Images\mlenkij-mel-high-resolution-logo-transparent.png

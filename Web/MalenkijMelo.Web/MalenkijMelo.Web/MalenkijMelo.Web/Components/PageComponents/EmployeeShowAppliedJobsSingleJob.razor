@@ -1,0 +1,65 @@
+@using MalenkijMelo.Share.Dtos
+@using System.Reflection
+@inherits BasePage
+@inject ISnackbar Snackbar
+
+@if (ApplicationDto != null)
+{
+    <Card Class="m-4 rounded-3" Style="@CardStyle">
+        <CardHeader>
+            <MudText Typo="Typo.h6">@JobTitle</MudText>
+        </CardHeader>
+        <CardBody>
+            <MudText Typo="Typo.body1">Munka helye: @JobWorkplace</MudText>
+            <MudText Typo="Typo.body1">idõpont: @JobDto!.DateOfWork</MudText>
+
+            @if (JobDto.IsPaymentMoney)
+            {
+                <MudText Typo="Typo.body1">
+                    fizetés:  @JobDto!.PaymentInHuf Ft
+                </MudText>
+            }
+            else
+            {
+                <MudText Typo="Typo.body1">
+                    fizetés: nem pénz
+                </MudText>
+            }
+
+            <MudText Typo="Typo.body1">@ShortJobDescription</MudText>
+        </CardBody>
+        <CardFooter Class="bg-primary rounded-bottom h-25">
+            <MudCardContent Class="pb-5">
+                @if (DateTime.Now < JobDto.DateOfWork)
+                {
+                    <MudButton @onclick="RemoveApplication" Variant="Variant.Filled" Color="Color.Dark">Jelentkezés visszavonása </MudButton>
+                }
+                else
+                {
+                    <MudButton @onclick="OnShowModalClick" Variant="Variant.Filled" Color="Color.Primary">Munkavállaló értékelése</MudButton>
+                }
+            </MudCardContent>
+        </CardFooter>
+    </Card>
+
+    <Modal @ref="modal" Title="@modalTitle" Class="mt-5">
+        <BodyTemplate>
+            <MudText Typo="Typo.body1" Class="m-1">Értékelés: </MudText>
+            <MudRating SelectedValue="ratingValue" SelectedValueChanged="(value)=>ratingValue=value"></MudRating>
+            <MudText Typo="Typo.body1" Class="m-1">Értékelés szövege: </MudText>
+            <input value="@ratingText" Multiline="true" Rows="4" Class="m-1 form-control form-text">
+        </BodyTemplate>
+        <FooterTemplate>
+            <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Mégse</Button>
+            @if (alreadyRated)
+            {
+                <Button Color="ButtonColor.Primary" @onclick="UpdateEmployerRating">Értékelés módosítása</Button>
+            }
+            else
+            {
+                <Button Color="ButtonColor.Primary" @onclick="RateEmployer">Értékelés</Button>
+            }
+        </FooterTemplate>
+    </Modal>
+}
+

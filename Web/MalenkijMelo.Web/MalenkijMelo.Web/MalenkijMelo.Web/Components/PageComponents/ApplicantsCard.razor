@@ -1,0 +1,43 @@
+﻿@inherits BasePage
+@inject ISnackbar Snackbar
+
+<MudContainer Class="m-2 col-lg-4">
+    <Card>
+        <CardHeader>
+            Név: @User!.Name
+        </CardHeader>
+        <CardBody>
+            <MudContainer Class="row">
+                Átlagértékelése:
+                <MudRating Class="col-8" ReadOnly=true SelectedValue="@Convert.ToInt16(User!.RatingAvg)"></MudRating>
+                <p class="col-4">
+                    @string.Format("{0:0.00}", User!.RatingAvg)
+                </p>
+            </MudContainer>
+
+        </CardBody>
+        <CardFooter>
+            <MudButton @onclick="async()=> await OnShowModalClick()" Color="Color.Primary">Értékelés</MudButton>
+        </CardFooter>
+    </Card>
+</MudContainer>
+
+<Modal @ref="modal" Title="@modalTitle" Class="mt-5">
+    <BodyTemplate >
+        <MudText Typo="Typo.body1" Class="m-1">Értékelés: </MudText>
+        <MudRating SelectedValue="ratingValue" SelectedValueChanged="(value)=>ratingValue=value"></MudRating>
+        <MudText Typo="Typo.body1" Class="m-1">Értékelés szövege: </MudText>
+        <input value="@ratingText" Multiline="true" Rows="4" Class="m-1 form-control form-text">
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Mégse</Button>
+        @if (alreadyRated)
+        {
+            <Button Class="btn btn-outline-primary" @onclick="UpdateEmployeeRating">Értékelés módosítása</Button>
+        }
+        else
+        {
+            <Button Class="btn btn-outline-primary" @onclick="RateEmployee">Értékelés</Button>
+        }
+    </FooterTemplate>
+</Modal>

@@ -1,0 +1,62 @@
+﻿@using MalenkijMelo.Share.Dtos
+@using System.Reflection
+@inherits BasePage
+@inject ISnackbar Snackbar
+
+@if (Job != null){
+    <MudCard Class="m-4 rounded-3" style="@OuterCardStyle">
+        <Card Class="w-75 h-75 rounded-bottom-0">
+            <CardHeader>
+                <MudText Typo="Typo.h6">@JobTitle</MudText>
+            </CardHeader>
+            <CardBody>
+                <MudText Typo="Typo.body1">Munka helye: @JobWorkplace</MudText>
+                <MudText Typo="Typo.body1">időpont: @Job!.DateOfWork</MudText>
+               
+                @if(Job.IsPaymentMoney){
+                    <MudText Typo="Typo.body1">
+                        fizetés:  @Job!.PaymentInHuf Ft
+                    </MudText>
+                }
+                else{
+                    <MudText Typo="Typo.body1">
+                        fizetés: nem pénz
+                    </MudText>
+                }
+                
+                <MudText Typo="Typo.body1">@ShortJobDescription</MudText>
+            </CardBody>
+        </Card>
+        <MudCardActions Class="bg-primary rounded-bottom h-25">
+            <MudCardContent>
+                 Jelentkezők száma : @Applicants
+                <MudButton @onclick="OnShowModalClick" Class="float-end" Variant="Variant.Filled" Color="Color.Dark">Részletek </MudButton>
+            </MudCardContent>
+        </MudCardActions>
+    </MudCard>
+
+    <Modal @ref="modal" Title="@JobTitle" Class="mt-5">
+        <BodyTemplate>
+            <MudText Typo="Typo.body1" Class="m-1">Munka helye: @JobWorkplace</MudText>
+            <MudText Typo="Typo.body1" Class="m-1">időpont: @Job!.DateOfWork</MudText>
+            @if (Job.IsPaymentMoney)
+            {
+                <MudText Typo="Typo.body1" Class="m-1">
+                    fizetés:  @Job!.PaymentInHuf Ft
+                </MudText>
+            }
+            else
+            {
+                <MudText Typo="Typo.body1" Class="m-1">
+                    fizetés:  nem pénz
+                </MudText>
+            }
+            <MudText Class="m-1">@Job.JobDescription</MudText>
+        </BodyTemplate>
+        <FooterTemplate>
+            <MudText Typo="Typo.body1" Class="m-1">Jelentkezők száma : @Applicants</MudText>
+            <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Bezárás</Button>
+            <Button Color="ButtonColor.Primary" @onclick="ApplyForJobClick">Jelentkezés</Button>
+        </FooterTemplate>
+    </Modal>
+}

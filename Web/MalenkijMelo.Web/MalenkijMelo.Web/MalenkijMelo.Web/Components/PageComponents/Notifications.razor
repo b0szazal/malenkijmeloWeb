@@ -1,0 +1,39 @@
+﻿@using MalenkijMelo.Share.Models
+
+<MudIcon Icon="@Icons.Material.Filled.Notifications" @onclick="ToggleNotifications"/>
+<MudContainer Class="fixed-top border-1 p-0 " Style="@notificationsStyle" >
+    @foreach (AdminAction notif in adminActions!)
+    {
+        <MudContainer Class="border-1 row" Style="height: fit-content; width:250px; overflow: hidden; margin: auto;">
+            <MudText>
+                @notif.ActionDescription
+            </MudText>
+
+        </MudContainer>
+    }
+</MudContainer>
+
+
+@code {
+    private string notificationsStyle = "background-color:purple; right:-80%; min-width: 250px; max-width: 250px; display:none";
+    private bool isNotificationsOpen = false;
+    private List<AdminAction> adminActions = new List<AdminAction>();
+    private IAdminActionHttpClientService httpClient=new AdminActionHttpClientService(new());
+
+    private async Task ToggleNotifications()
+    {
+        if (!isNotificationsOpen)
+        {
+            notificationsStyle = "background-color:purple; right:-80%; height:464px; overlow-y:auto;  top:64px; width: 250px; animation: openNotifications 0.25s; animation-timing-function: ease;";
+            if (adminActions.Count == 0)
+            {
+                adminActions = await httpClient.GetNotifications();
+            } 
+        }
+        else
+        {
+            notificationsStyle = "background-color:purple; right:-80%; height:64px; display:none; min-width: 250px; max-width: 250px; animation: closeNotifications 0.25s; animation-timing-function: ease-in;";
+        }
+        isNotificationsOpen = !isNotificationsOpen;
+    }
+}

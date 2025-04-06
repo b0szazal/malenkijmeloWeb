@@ -1,0 +1,139 @@
+﻿@page "/login"
+@using MalenkijMelo.Share.Models
+@using System.Text.RegularExpressions
+@using System.IdentityModel.Tokens.Jwt
+
+@inherits BasePage
+
+@inject ISnackbar Snackbar
+
+<PageTitle>Bejelentkezés</PageTitle>
+
+<MudPaper Class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto pb-2">
+    <MudForm Class="pb-3 px-2">
+        <MudTextField T="string" Label="E-Mail cím" InputType="InputType.Email" Required="true" RequiredError="Kérem, adja meg az e-mail címét a bejelentkezéshez!" @bind-Value="email" />
+        <MudTextField T="string" Label="Jelszó" InputType="InputType.Password" @bind-Value="password" />
+        <MudCheckBox T="bool" Label="Maradjon bejelentkezve" />
+        <MudButton Variant="Variant.Outlined" OnClick="SendForm" Disabled="@processing">Bejelentkezés</MudButton>
+    </MudForm>
+    <MudText Class="text-center">
+        Még nem regisztrált?
+        <MudLink Href="/register">Regisztráció</MudLink>
+    </MudText>
+</MudPaper>
+
+@code {
+    private string? email;
+    private string? password;
+    private bool processing;
+    private bool isSubmitted;
+    private List<string>? errors;
+    private string? token;
+    private DateTime? suspendedUntil;
+
+    private User? user;
+
+    [Inject]
+    public IUserAuthHttpClientService? AuthHttpService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (IsUserLoggedIn)
+        {
+            Redirect("/");
+        }
+
+        AuthHttpService = new UserAuthHttpClientService(new());
+        UserHttpService = new UserHttpClientService(new());
+
+        email = string.Empty;
+        password = string.Empty;
+        isSubmitted = false;
+        errors = [];
+        token = null;
+
+        base.OnInitialized();
+    }
+
+    private async Task SendForm()
+    {
+        user = null;
+        errors = [];
+        processing = true;
+
+        token = await Login(email!, password!);
+
+        if(token is not null && token != string.Empty && token != "")
+        {
+            string id = await GetUserId(token);
+            user = await UserHttpService!.GetByIdAsync(id);
+
+            if(user is not null)
+            {
+                if (suspendedUntil > DateTime.Now)
+                {
+                    errors.Add("A felhasználó fel van függesztve " + suspendedUntil + "-ig");
+                }
+                else
+                {
+                    await StoreData();
+                }           
+            }
+            else
+            {
+                errors.Add("Hiba a bejelentkezés során: Nem található felhasználó.");
+            }
+        }
+        else
+        {
+            errors.Add("Hiba a bejelentkezés során: Hibás bejelentkezési adatok.");
+        }
+
+        if(errors.Count > 0)
+        {
+            foreach (string e in errors)
+            {
+                AddErrorSnackbar(e);
+            }
+        }
+        else
+        {
+            isSubmitted = true;
+            Redirect("/");
+        }
+
+        processing = false;
+    }
+
+    private void AddErrorSnackbar(string message)
+    {
+        Snackbar.Add(message, Severity.Error, (options) =>
+        {
+            options.CloseAfterNavigation = true;
+        });
+    }
+
+    private async Task StoreData()
+    {
+        if(LocalStorage is not null && user is not null)
+        {
+            await LocalStorage.SetItemAsStringAsync("id", user.Id);
+        }
+    }
+
+    private async Task<string> Login(string email, string password) =>
+                    await AuthHttpService!.UserLoginAsync(email, password);
+
+    private async Task<string> GetUserId(string token)
+    {
+        JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+        var jsonToken = handler.ReadToken(token);
+        JwtSecurityToken tokenS = (jsonToken as JwtSecurityToken)!;
+
+        string id = tokenS.Claims.ToList()[0].ToString().Split(':')[2].Trim();
+        string user = Convert.ToString(tokenS.Claims.ToList()[0].ToString().Split(' ')[1]);
+        suspendedUntil = (await AuthHttpService!.GetByIdAsync(user)).SuspendedUntil;
+
+        return id;
+    }
+}

@@ -1,0 +1,42 @@
+﻿@keyframes openMessages
+{
+    from
+    {
+        top: 96%;
+    }
+    to 
+    {
+        top: 71%;
+    }
+}
+
+@keyframes closeMessages 
+{
+    from {
+        top: 71%;
+    }
+    to {
+        top: 96%;
+    }
+}
+
+@keyframes openNotifications {
+    from {
+        height: 64px;
+    }
+
+    to {
+        height: 464px;
+    }
+}
+
+@keyframes closeNotifications {
+    from {
+        height: 464px;
+    }
+
+    to {
+        height: 64px;
+        display: none;
+    }
+}

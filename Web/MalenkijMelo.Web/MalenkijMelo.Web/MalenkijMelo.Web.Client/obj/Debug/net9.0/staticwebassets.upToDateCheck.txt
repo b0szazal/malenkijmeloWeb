@@ -1,0 +1,4 @@
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\wwwroot\appsettings.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\wwwroot\appsettings.Development.json
+wwwroot\appsettings.Development.json
+wwwroot\appsettings.json

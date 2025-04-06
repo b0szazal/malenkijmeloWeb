@@ -1,0 +1,54 @@
+﻿@page "/applications"
+@using MalenkijMelo.Share.Dtos
+@using MalenkijMelo.Share.Models
+@using MalenkijMelo.Share.Converters
+@using MalenkijMelo.Web.Components.PageComponents
+@inherits BasePage
+
+<PageTitle>Munkalehetőségek</PageTitle>
+
+<MudContainer>
+    <MudContainer Class="d-flex justify-content-around flex-wrap">
+        @foreach(UserJobActionDto application in applications!)
+        {
+            <CascadingValue Value="application" Name="Application">
+                <EmployeeShowAppliedJobsSingleJob />
+            </CascadingValue>
+        }
+    </MudContainer>
+</MudContainer>
+
+@code {
+    List<UserJobActionDto>? applications = new();
+
+    [Inject]
+    public IJobHttpClientService? JobHttpService { get; set; }
+
+    private IUserJobActionHttpClientService userJobActionHttpClientService;
+
+
+    public ShowApplications()
+    {
+        JobHttpService = new JobHttpClientService(new());
+        userJobActionHttpClientService = new UserJobActionHttpClientService(new());
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+             applications = await userJobActionHttpClientService.GetUserJobActionsByUserId(CurrentUser!.Id);
+        }
+        catch (Exception)
+        {
+            applications = [];
+        }
+    }
+}

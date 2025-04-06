@@ -1,0 +1,122 @@
+﻿@page "/register"
+@using MalenkijMelo.Share.Models
+@using MalenkijMelo.Share.Models.Responses
+
+@inherits BasePage
+
+@inject ISnackbar Snackbar
+
+<PageTitle>Regisztráció</PageTitle>
+
+<MudContainer>
+    <MudGrid>
+        <MudItem xs="12" sm="8" md="6" Class="mx-auto">
+            <MudForm @bind-IsValid="@isValid">
+                <MudTextField T="string"
+                Label="Név"
+                InputType="InputType.Text"
+                Required="true"
+                RequiredError="Kérem, adja meg a nevét!"
+                @bind-Value="user!.Name" />
+                <MudTextField T="string"
+                Label="E-Mail cím"
+                InputType="InputType.Email"
+                Required="true"
+                RequiredError="Az e-mail cím megadása kötelező!"
+                @bind-Value="user!.Email" />
+                <MudTextField T="string"
+                Label="Jelszó"
+                InputType="InputType.Password"
+                Required="true"
+                RequiredError="Jelszó megadása kötelező!"
+                @bind-Value="user!.Password" />
+                <MudTextField T="string"
+                Label="Jelszó megerősítése"
+                InputType="InputType.Password"
+                Required="true"
+                RequiredError="Kérem, erősítse meg jelszavát!"
+                @bind-Value="passwordCheck" />
+                <MudButton Variant="Variant.Filled"
+                Class="mt-4"
+                Disabled="@(!isValid)"
+                OnClick="ValidateForm">
+                    Regisztráció
+                </MudButton>
+            </MudForm>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private User? user;
+    private string? passwordCheck;
+    private bool isValid;
+    private bool processing;
+    private List<string>? errors;
+
+    [Inject]
+    public IUserAuthHttpClientService? AuthHttpClientService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (IsUserLoggedIn)
+        {
+            Redirect("/");
+        }
+
+        AuthHttpClientService = new UserAuthHttpClientService(new());
+
+        user = new User();
+        passwordCheck = string.Empty;
+        isValid = false;
+        errors = new List<string>();
+
+        base.OnInitialized();
+    }
+
+    private async Task ValidateForm()
+    {
+        isValid = false;
+        processing = true;
+        errors = [];
+
+        if(user!.Password != passwordCheck)
+        {
+            errors.Add("A jelszavak nem egyeznek!");
+        }
+
+        else {
+            user.Id = $"d{Guid.NewGuid().ToString()}";
+            ControllerResponse response = await AuthHttpClientService!.UserRegisterAsync(user);
+
+            if (response.HasError)
+            {
+                errors.Add(response.Error);
+            }
+        }
+
+        if(errors.Count == 0)
+        {
+            isValid = true;
+            Snackbar.Add("Sikeres regisztráció!", Severity.Info);
+            Redirect("/login");
+        }
+        else
+        {
+            foreach(string e in errors)
+            {
+                AddErrorSnackbar(e);
+            }
+        }
+    }
+
+    private void AddErrorSnackbar(string message)
+    {
+        Snackbar.Add(message, Severity.Error, (options) =>
+        {
+            options.CloseAfterNavigation = true;
+            options.ShowTransitionDuration = 200;
+            options.HideTransitionDuration = 300;
+        });
+    }
+}

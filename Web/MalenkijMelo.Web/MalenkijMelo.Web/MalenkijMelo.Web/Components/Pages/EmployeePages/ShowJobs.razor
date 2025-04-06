@@ -1,0 +1,188 @@
+﻿@page "/jobs"
+@using MalenkijMelo.Share.Dtos
+@using MalenkijMelo.Share.Models
+@using MalenkijMelo.Share.Converters
+@using MalenkijMelo.Web.Components.PageComponents
+@inherits BasePage
+
+<PageTitle>Munkalehetőségek</PageTitle>
+
+<MudContainer >
+    <MudContainer Class="d-flex justify-content-around flex-wrap">
+        @foreach (JobDto jobDto in jobs!)
+        {
+            <CascadingValue Value="jobDto" Name="Job">
+                <EmployeeShowJobsSingleJob />
+            </CascadingValue>
+        }
+    </MudContainer>
+    <MudContainer Class="text-center fs-4">
+        @if(_currentPage > 4)
+        {
+            <Button Class="btn btn-outline-primary m-2" @onclick='async()=>await GoToPage1()'>1</Button>
+        }
+
+        <Button Class="@_btnStyles[0]" @onclick='async()=>await Changepage(-10)'>&lt;&lt;</Button>
+        <Button Class="@_btnStyles[1]" @onclick='async()=>await Changepage(-1)'>&lt;</Button>
+        <Button Class="@_btnStyles[2]" @onclick='async()=>await ChangeTopage(_pages[0])'>@_pages[0]</Button>
+        <Button Class="@_btnStyles[3]" @onclick='async()=>await ChangeTopage(_pages[1])'>@_pages[1]</Button>
+        <Button Class="@_btnStyles[4]" @onclick='async()=>await ChangeTopage(_pages[2])'>@_pages[2]</Button>
+        <Button Class="@_btnStyles[5]" @onclick='async()=>await ChangeTopage(_pages[3])'>@_pages[3]</Button>
+        <Button Class="@_btnStyles[6]" @onclick='async()=>await ChangeTopage(_pages[4])'>@_pages[4]</Button>
+        <Button Class="@_btnStyles[7]" @onclick='async()=>await ChangeTopage(_pages[5])'>@_pages[5]</Button>
+        <Button Class="@_btnStyles[8]" @onclick='async()=>await ChangeTopage(_pages[6])'>@_pages[6]</Button>
+        <Button Class="@_btnStyles[9]" @onclick='async()=>await Changepage(1)'>&gt;</Button>
+        <Button Class="@_btnStyles[10]" @onclick='async()=>await Changepage(10)'>&gt;&gt;</Button>
+    </MudContainer>
+</MudContainer>
+
+@code {
+    JobDto[]? jobs;
+
+    [Inject]
+    public IJobHttpClientService? JobHttpService { get; set; }
+
+    private int _currentPage = 1;
+
+    private int maxPages = 1;
+
+    private int[] _pages = [1, 2, 3, 4, 5, 6, 7];
+
+    private string[] _btnStyles = [
+        "btn btn-outline-primary disabled",
+        "btn btn-outline-primary disabled",
+        "btn btn-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary",
+        "btn btn-outline-primary"
+    ];
+
+    public ShowJobs()
+    {
+        JobHttpService = new JobHttpClientService(new());
+        jobs = [];
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task Changepage(int amt)
+    {
+        if ((0 >= _currentPage && amt<0) || (amt>0 && _currentPage >= maxPages))
+        {
+            return;
+        }
+        _currentPage += amt;
+        await LoadData();
+        ChangePageNavigationNumbers(amt);
+    }
+
+    private async Task GoToPage1()
+    {
+        int diff = 1 - _currentPage;
+        _currentPage = 1;
+        await LoadData();
+        for(int i=0; i<7; i++)
+        {
+            _pages[i] = i + 1;
+        }
+        ChangePageNavigationStyles();
+    }
+
+    private async Task ChangeTopage(int page)
+    {
+        int diff = page - _currentPage;
+        _currentPage = page;
+        await LoadData();
+        ChangePageNavigationNumbers(diff);
+    }
+
+    private void ChangePageNavigationNumbers(int amt)
+    {
+        if ((_pages[3] >= _currentPage && _currentPage <= 3) || (_pages[3] <= _currentPage && amt<0))
+        {
+            Console.WriteLine("no "+_currentPage);
+            ChangePageNavigationStyles();
+            return;
+        }
+        bool direction = false;
+        if (amt>0)
+        {
+            direction = true;
+        }
+        for(int i=0; i<7; i++)
+        {
+            if (direction) 
+                _pages[i]+= _currentPage-amt < 4  && amt > 3 ? amt-3 : amt;
+            else 
+                _pages[i]-= Math.Abs(amt);
+
+            Console.WriteLine(_pages[i]);
+        }
+        ChangePageNavigationStyles();
+    }
+
+    private void ChangePageNavigationStyles()
+    {
+        //countdown from 10
+        if (_currentPage > maxPages - 10)
+            _btnStyles[10] = "btn btn-outline-primary disabled";
+        else
+            _btnStyles[10] = "btn btn-outline-primary";
+
+        if (_currentPage >  maxPages - 1)
+            _btnStyles[9] = "btn btn-outline-primary disabled";
+        else
+            _btnStyles[9] = "btn btn-outline-primary";
+
+        for(int i=8; i>1; i--)
+        {
+            if (_pages[i - 2] > maxPages)
+                _btnStyles[i] = "btn btn-outline-primary disabled";
+            else if (_currentPage == _pages[i-2])
+                _btnStyles[i] = "btn btn-primary";
+            else
+                _btnStyles[i] = "btn btn-outline-primary";
+        }
+
+        if (_currentPage == 1)
+            _btnStyles[1] = "btn btn-outline-primary disabled";
+        else
+            _btnStyles[1] = "btn btn-outline-primary";
+
+        if (_currentPage <= 10)
+            _btnStyles[0] = "btn btn-outline-primary disabled";
+        else
+            _btnStyles[0] = "btn btn-outline-primary";
+
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            int _numberOfJobs = 300;
+            await Task.Run(() =>
+            {
+                _numberOfJobs = JobHttpService!.GetNumberOfJobs().Result;
+                Job[] jobsnormal = JobHttpService!.GetJobs(_currentPage).Result;
+                jobs = jobsnormal.Select(a => a.ConvertToJobDto()).ToArray();
+            });
+            maxPages = (int)Math.Ceiling((double)_numberOfJobs / 30);
+            ChangePageNavigationStyles();
+        }
+        catch(Exception)
+        {
+            jobs = [];
+        }
+    }
+}

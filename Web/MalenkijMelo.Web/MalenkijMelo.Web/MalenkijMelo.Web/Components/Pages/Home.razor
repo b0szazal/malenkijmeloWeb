@@ -1,0 +1,18 @@
+﻿@page "/"
+@inherits BasePage
+
+<PageTitle>Malenkij Meló</PageTitle>
+
+<MudContainer Class="border mt-4" MaxWidth="MaxWidth.Large">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudText>...</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            @if (!IsUserLoggedIn)
+            {
+                <MudLink Href="/login" Class="btn btn-primary text-light">Bejelentkezés</MudLink>
+            }
+        </MudItem>
+    </MudGrid>
+</MudContainer>

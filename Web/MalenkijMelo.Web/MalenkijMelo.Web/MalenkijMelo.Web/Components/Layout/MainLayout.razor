@@ -1,0 +1,29 @@
+﻿@using MalenkijMelo.Web.Components.PageComponents
+@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout Class="d-flex flex-cloumn">
+    <MudAppBar Elevation="15" Style="@($"background-color: {Colors.Purple.Darken3}")">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Class="text-white" OnClick="@ToggleNavbar" />
+        <MudSpacer />
+        <Notifications/>
+        <ThemeSwitcher Class="ps-3 ps-lg-2" Position="DropdownMenuPosition.End"/>
+    </MudAppBar>
+    <CascadingValue Value="isNavbarOpen" Name="navbarOpen">
+        <NavMenu />
+    </CascadingValue>
+    <MudMainContent Class="m-5 h-100">
+        @Body
+        <!-- <Messages/> KEEP THIS COMMENTED YOU PIECE -->
+    </MudMainContent>
+</MudLayout>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

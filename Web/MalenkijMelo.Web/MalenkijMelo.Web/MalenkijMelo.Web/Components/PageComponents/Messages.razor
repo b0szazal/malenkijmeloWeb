@@ -1,0 +1,51 @@
+﻿@using MalenkijMelo.Share.Models
+@inherits BasePage
+
+@if (IsUserLoggedIn)
+{
+    <MudBadge Origin="Origin.TopRight" Content="@BadgeContent" Overlap="true" Class="bg-primary text-center rounded-top fixed-bottom" Style=@MessageToggleStyle>
+        <MudButton Class="bg-primary text-white w-100" @onclick="ToggleMessages">
+            Üzenetek
+        </MudButton>
+        <Collapse @ref="Collapse" Class="bg-primary text-center fixed-bottom rounded-top text-black" Style=" width:15%; left: 80%; max-height: 25%; overflow: auto">
+            @foreach (Message msg in messageStore!)
+            {
+                <MudContainer Class="bg-white text-center border-1" Style="height: 50px" @onclick="OpenChat">
+                    @msg.MessageBody
+                </MudContainer>
+            }
+        </Collapse>
+    </MudBadge>
+}
+
+
+
+@if (ChatShown)
+{
+    <MudCard Class="bg-black text-center fixed-bottom text-white" Style=" width:15%; left: 65%; max-height: 29%">
+        <MudCardHeader @onclick="CloseChat" Class="d-flex flex-row-reverse" style="height: 10%">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" /></svg>
+        </MudCardHeader>
+        <MudCardContent Class="h-75 overflow-auto d-flex flex-column-reverse">
+            <MudChat ChatPosition="ChatBubblePosition.End" Class="d-flex flex-column-reverse gap-2">
+                <MudChatBubble Class="text-white bg-primary">
+                    You underestimate my power!
+                </MudChatBubble>
+            </MudChat>
+            <MudChat ChatPosition="ChatBubblePosition.Start" Class="d-flex flex-column-reverse gap-2">
+
+                <MudChatBubble Class="text-white bg-primary">
+                    I have the high ground.
+                </MudChatBubble>
+                <MudChatBubble Class="text-white bg-primary">
+                    It's over Anakin
+                </MudChatBubble>
+            </MudChat>
+
+        </MudCardContent>
+        <MudCardActions Class="d-flex flex-row bg-primary">
+            <input type="text" value="@MessageToSend" Placeholder="új üzenet" Class="text-white w-75 p-2 rounded" />
+            <Button><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" /></svg></Button>
+        </MudCardActions>
+    </MudCard>
+}

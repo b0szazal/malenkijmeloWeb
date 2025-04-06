@@ -1,0 +1,123 @@
+﻿@page "/showMyJobs"
+@using MalenkijMelo.Share.Dtos
+@using MalenkijMelo.Share.Models
+@using MalenkijMelo.Web.Components.PageComponents
+@using MalenkijMelo.Share.Converters
+@inherits BasePage
+
+<PageTitle>Munkalehetőségeim</PageTitle>
+
+@if(myJobs is not null && !isApplicantsOpen) {
+    <MudContainer Class="d-flex justify-content-around flex-wrap">
+        @foreach (JobDto jobDto in myJobs)
+        {
+            <Card Class="rounded-3 m-4">
+                <MudCardHeader>
+                    <MudText Typo="Typo.body1">Munka neve: @jobDto.JobName</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body1">Munka leírása: @jobDto.JobDescription</MudText>
+                    <MudText Typo="Typo.body1">Munka helye: @jobDto.WorkplaceId</MudText>
+                    <MudText Typo="Typo.body1">Munka időpontja: @jobDto.DateOfWork</MudText>
+                    <MudText Typo="Typo.body1">Munka fizetése: @jobDto.PaymentInHuf Ft</MudText>
+                </MudCardContent>
+                <MudCardActions Class="bg-primary rounded-bottom h-25">
+                    <MudCardContent>
+                        <!--<MudButton Class="float-start" Variant="Variant.Filled" Color="Color.Dark">Szerkesztés </MudButton> -->
+                        <MudButton Class="float-end" Variant="Variant.Filled" Color="Color.Dark" @onclick="async()=>await GetApplicants(jobDto)">Jelentkezők </MudButton>
+                    </MudCardContent>
+                </MudCardActions>
+            </Card>
+        }
+    </MudContainer>
+}
+
+@if (isApplicantsOpen)
+{
+    <MudContainer Class="m-auto w-75 mt-4 row justify-content-center">
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" @onclick="()=>{users.Clear(); isApplicantsOpen=false;}">Vissza a munkáimhoz</MudButton>
+        @foreach (User user in users)
+        {
+            <CascadingValue Value="user" Name="User">
+                <ApplicantsCard />
+            </CascadingValue>
+        }
+    </MudContainer>
+    <MudContainer Class="d-flex justify-content-around flex-wrap">
+        <Card Class="rounded-3 m-4">
+            <MudCardHeader>
+                <MudText Typo="Typo.body1">Munka neve: @Jobdto!.JobName</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.body1">Munka leírása: @Jobdto!.JobDescription</MudText>
+                <MudText Typo="Typo.body1">Munka helye: @Jobdto!.WorkplaceId</MudText>
+                <MudText Typo="Typo.body1">Munka időpontja: @Jobdto!.DateOfWork</MudText>
+                <MudText Typo="Typo.body1">Munka fizetése: @Jobdto!.PaymentInHuf Ft</MudText>
+            </MudCardContent>
+            <MudCardActions Class="bg-primary rounded-bottom h-25">
+                <MudCardContent>
+                    <!--<MudButton Class="float-start" Variant="Variant.Filled" Color="Color.Dark">Szerkesztés </MudButton> -->
+                    <MudButton Class="float-end" Variant="Variant.Filled" Color="Color.Dark" @onclick="async()=>await GetApplicants(Jobdto!)">Jelentkezők </MudButton>
+                </MudCardContent>
+            </MudCardActions>
+        </Card>
+    </MudContainer>
+}
+
+@code {
+    private List<JobDto>? myJobs;
+
+    private JobDto? Jobdto;
+    private List<User> users = new List<User>();
+    private bool isApplicantsOpen = false;
+
+    [Inject]
+    public IJobHttpClientService? jobHttpClientService { get; set; }
+
+    public ShowMyJobs()
+    {
+        jobHttpClientService = new JobHttpClientService(new());
+        myJobs = [];
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IUserJobActionHttpClientService userJobActionHttpClientService = new UserJobActionHttpClientService(new());
+        try
+        {
+            List<Job>jobs = new();
+            await Task.Run(() =>
+            {
+                List<UserJobActionDto> usjs = userJobActionHttpClientService.GetUserJobActionsByUserId(CurrentUser!.Id).Result;
+                foreach (UserJobActionDto userJob in usjs)
+                {
+                    jobs.Add(jobHttpClientService!.GetByIdAsync(userJob.JobId).Result);
+                }
+
+            });
+            myJobs = jobs.ConvertListToJobDtos(); 
+        }
+        catch(Exception)
+        {
+        }
+    }
+
+    private async Task GetApplicants(JobDto jobDto)
+    {
+        Jobdto = jobDto;
+        IUserJobActionHttpClientService userJobActionHttpClientService = new UserJobActionHttpClientService(new());
+        IUserHttpClientService userHttpClientService = new UserHttpClientService(new());
+        IRatingHttpClientService ratingHttpClientService = new RatingHttpClientService(new());
+        await Task.Run(() =>
+        {
+            List<UserJobAction> userJobActions = userJobActionHttpClientService.GetApplicants(Jobdto!.JobId).Result;
+            foreach (UserJobAction userJobAction in userJobActions)
+            {
+                User user = userHttpClientService.GetByIdAsync(userJobAction.UserId).Result;
+                user.RatingAvg = ratingHttpClientService.GetUserRatingAvg(user.Id).Result;
+                users.Add(user);
+            }
+        });
+        isApplicantsOpen = true;
+    }
+}

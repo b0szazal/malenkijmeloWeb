@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MalenkijMelo.Web", "MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.csproj", "{99F1FBA2-3D3F-4CFD-BCDF-A47D30957DAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MalenkijMelo.Web.Client", "MalenkijMelo.Web\MalenkijMelo.Web.Client\MalenkijMelo.Web.Client.csproj", "{CBF72861-5D02-4792-955D-A53334F8DC8F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MalenkijMelo.Share", "..\..\Share\MalenkijMelo.Share\MalenkijMelo.Share\MalenkijMelo.Share.csproj", "{4DC1BC09-46E2-4FF4-A6F0-8155D35DF8BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalenkijMelo.Services", "..\..\Share\MalenkijMelo.Services\MalenkijMelo.Services\MalenkijMelo.Services.csproj", "{75FDB964-5299-4140-B08D-ED47BA32C4CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99F1FBA2-3D3F-4CFD-BCDF-A47D30957DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99F1FBA2-3D3F-4CFD-BCDF-A47D30957DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99F1FBA2-3D3F-4CFD-BCDF-A47D30957DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99F1FBA2-3D3F-4CFD-BCDF-A47D30957DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF72861-5D02-4792-955D-A53334F8DC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF72861-5D02-4792-955D-A53334F8DC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF72861-5D02-4792-955D-A53334F8DC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF72861-5D02-4792-955D-A53334F8DC8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC1BC09-46E2-4FF4-A6F0-8155D35DF8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC1BC09-46E2-4FF4-A6F0-8155D35DF8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC1BC09-46E2-4FF4-A6F0-8155D35DF8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC1BC09-46E2-4FF4-A6F0-8155D35DF8BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75FDB964-5299-4140-B08D-ED47BA32C4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75FDB964-5299-4140-B08D-ED47BA32C4CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75FDB964-5299-4140-B08D-ED47BA32C4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75FDB964-5299-4140-B08D-ED47BA32C4CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4098CEA-1431-4E7D-8968-85FD8E587139}
+	EndGlobalSection
+EndGlobal

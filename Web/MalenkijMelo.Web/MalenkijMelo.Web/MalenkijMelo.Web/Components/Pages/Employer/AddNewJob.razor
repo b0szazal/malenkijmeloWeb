@@ -1,0 +1,166 @@
+﻿@page "/jobs/new-job"
+
+@using MalenkijMelo.Share.Models
+@using MalenkijMelo.Share.Dtos
+@using MalenkijMelo.Share.Models.Responses
+@using MalenkijMelo.Web.Components.PageComponents
+@using MalenkijMelo.Share.Converters
+@using System.Text.RegularExpressions
+
+@inherits BasePage
+
+@inject ISnackbar Snackbar
+
+<PageTitle>Új munkalehetőség felvétele</PageTitle>
+
+<MudContainer>
+    <MudForm IsValid="isValid">
+        <MudTextField @bind-Value="job!.JobName" T="string" Label="Munka neve" Required="true" RequiredError="@REQUIRED_ERROR_MESSAGE" />
+        <MudTextField @bind-Value="job!.JobDescription" T="string" Label="Munka leírása" />
+        <MudCheckBox @bind-Value="job!.IsPaymentMoney" T="bool" Label="Pénzbeli fizetés" Required="false" />
+        @if (job.IsPaymentMoney)
+        {
+            <MudNumericField @bind-Value="job!.PaymentInHuf" Label="Munkabér összege" />
+        }
+        <MudDatePicker @bind-Date="dateOfWork" Editable="true" Label="Munkavégzés kezdete" Required="true" RequiredError="@REQUIRED_ERROR_MESSAGE" />
+        <MudButton Disabled="processing" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Send" Color="Color.Primary" OnClick="ValidateFormAsync">
+            @if(processing) {
+                <MudText>Munkalehetőség közzététele...</MudText>
+            }
+            else {
+                <MudText>Közzététel</MudText>
+            }
+        </MudButton>
+    </MudForm>
+    @if(submitted) {
+        <div class="mt-2">
+            <MudText TextColor="TextColor.Success">@message</MudText>
+        </div>
+    }
+
+    @if (!isValid)
+    {
+        <div class="mt-2">
+            @foreach (string e in errors)
+            {
+                <MudText Class="red-text">@e</MudText>
+            }
+        </div>
+    }
+</MudContainer>
+
+@code {
+    private Job? job;
+    private const string REQUIRED_ERROR_MESSAGE = "A mező kitöltése kötelező!";
+    private string message;
+    private bool processing;
+    private bool submitted,
+                 isValid;
+    private DateTime? dateOfWork;
+    private List<string> errors= new List<string>();
+
+    [Inject]
+    public IJobHttpClientService? JobHttpService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        JobHttpService = new JobHttpClientService(new());
+        submitted = false;
+        processing = false;
+        job = new Job();
+        errors = new List<string>();
+        bool isRoleEmployee = CurrentUser!.Id[0] =='d';
+        if (!IsUserLoggedIn || isRoleEmployee)
+        {
+            Console.WriteLine(IsUserLoggedIn);
+            Redirect("/login");
+            Snackbar.Add("Új munkalehetőség közzétételéhez munkaadóként kell bejelentkeznie!", Severity.Warning);
+        }
+
+        base.OnInitialized();
+    }
+
+    private async Task SendFormAsync()
+    {
+        if(job is not null)
+        {
+            await InsertNewJobAsync(job);
+            submitted = true;
+        }
+    }
+
+    private async Task ValidateFormAsync()
+    {
+        errors = new List<string>();
+        isValid = true;
+        processing = true;
+        submitted = false;
+
+
+        if (this.dateOfWork is not null)
+        {
+            job!.DateOfWork = (DateTime)this.dateOfWork;
+        }
+
+        // Validation
+        string jobName = job!.JobName.Trim(),
+               jobDescription = job!.JobDescription;
+        DateTime dateOfWork = job!.DateOfWork;
+
+        if(jobName.Length < 3)
+        {
+            isValid = false;
+            errors.Add("A munka neve túl rövid (legalább 3 karakter)!");
+        }
+        else if (!Regex.IsMatch(jobName[0].ToString(), @"[a-zA-Z]"))
+        {
+            isValid = false;
+            errors.Add("A munka nevének betűvel kell kezdődnie!");
+        }
+        if(dateOfWork == default)
+        {
+            isValid = false;
+            errors.Add("Választania kell dátumot!");
+        }
+        else if (!IsDateGreaterThanToday(dateOfWork))
+        {
+            isValid = false;
+            errors.Add("A dátumnak későbbinek kell lennie a mai napnál!");
+        }
+        if(job.IsPaymentMoney && job.PaymentInHuf <= 0)
+        {
+            isValid = false;
+            errors.Add("Adjon meg pénzbeli fizetést!");
+        }
+
+        processing = false;
+
+        if(isValid)
+        {
+            await SendFormAsync();
+        }
+    }
+
+
+    private async Task InsertNewJobAsync(Job job)
+    {
+        ControllerResponse response = await JobHttpService!.PostAsync(job);
+
+        if (!response.HasError)
+        {
+            message = "Sikeresen közzétette a munkalehetőséget!";
+        }
+        else
+        {
+            message = "Hiba a közzététel során.";
+            errors.Add(response.Error);
+        }
+    }
+
+    private bool IsDateGreaterThanToday(DateTime date) {
+        int year = date.Year,
+            day  = date.DayOfYear;
+
+        return year > DateTime.Now.Year || (year == DateTime.Now.Year && day > DateTime.Now.DayOfYear);
+    }
+}

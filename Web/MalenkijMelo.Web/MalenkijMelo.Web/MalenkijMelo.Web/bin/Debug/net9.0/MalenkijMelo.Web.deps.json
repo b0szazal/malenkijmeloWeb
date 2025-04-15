@@ -13,7 +13,6 @@
           "CommunityToolkit.Mvvm": "8.4.0",
           "MalenkijMelo.Services": "1.0.0",
           "MalenkijMelo.Share": "1.0.0",
-          "MalenkijMelo.ViewModels": "1.0.0",
           "MalenkijMelo.Web.Client": "1.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly.Server": "9.0.2",
           "MudBlazor": "8.2.0",
@@ -498,18 +497,6 @@
           }
         }
       },
-      "MalenkijMelo.ViewModels/1.0.0": {
-        "dependencies": {
-          "MalenkijMelo.Services": "1.0.0",
-          "MalenkijMelo.Share": "1.0.0"
-        },
-        "runtime": {
-          "MalenkijMelo.ViewModels.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "MalenkijMelo.Web.Client/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Components.WebAssembly": "9.0.2"
@@ -822,11 +809,6 @@
       "sha512": ""
     },
     "MalenkijMelo.Share/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MalenkijMelo.ViewModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

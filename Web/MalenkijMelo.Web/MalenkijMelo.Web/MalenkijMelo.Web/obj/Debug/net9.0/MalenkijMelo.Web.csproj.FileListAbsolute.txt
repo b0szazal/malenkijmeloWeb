@@ -175,11 +175,9 @@ C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.Services.dll
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.Share.dll
-C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.ViewModels.dll
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.Web.Client.dll
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.Services.pdb
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.Share.pdb
-C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.ViewModels.pdb
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\bin\Debug\net9.0\MalenkijMelo.Web.Client.pdb
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\obj\Debug\net9.0\MalenkijMelo.Web.csproj.AssemblyReference.cache
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web\obj\Debug\net9.0\MalenkijMelo.Web.GeneratedMSBuildEditorConfig.editorconfig

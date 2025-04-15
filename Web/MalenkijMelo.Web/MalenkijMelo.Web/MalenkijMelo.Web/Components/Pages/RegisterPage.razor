@@ -86,7 +86,7 @@
         }
 
         else {
-            user.Id = $"d{Guid.NewGuid().ToString()}";
+            user.Id = $"d";
             ControllerResponse response = await AuthHttpClientService!.UserRegisterAsync(user);
 
             if (response.HasError)

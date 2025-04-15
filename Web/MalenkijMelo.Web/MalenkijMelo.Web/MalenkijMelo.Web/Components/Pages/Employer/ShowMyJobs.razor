@@ -108,7 +108,7 @@
         IUserJobActionHttpClientService userJobActionHttpClientService = new UserJobActionHttpClientService(new());
         IUserHttpClientService userHttpClientService = new UserHttpClientService(new());
         IRatingHttpClientService ratingHttpClientService = new RatingHttpClientService(new());
-        await Task.Run(() =>
+        /*await Task.Run(() =>
         {
             List<UserJobAction> userJobActions = userJobActionHttpClientService.GetApplicants(Jobdto!.JobId).Result;
             foreach (UserJobAction userJobAction in userJobActions)
@@ -117,7 +117,14 @@
                 user.RatingAvg = ratingHttpClientService.GetUserRatingAvg(user.Id).Result;
                 users.Add(user);
             }
-        });
+        });*/
+        List<UserJobAction> userJobActions = await userJobActionHttpClientService.GetApplicants(Jobdto!.JobId);
+        foreach (UserJobAction userJobAction in userJobActions)
+        {
+            User user = await userHttpClientService.GetByIdAsync(userJobAction.UserId);
+            user.RatingAvg = await ratingHttpClientService.GetUserRatingAvg(user.Id);
+            users.Add(user);
+        }
         isApplicantsOpen = true;
     }
 }

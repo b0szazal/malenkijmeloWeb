@@ -6,3 +6,6 @@ C:\Users\User\OneDrive\Asztali gép\VizsgaRemek\Forráskód\Web\MalenkijMelo.Web
 C:\Users\User\OneDrive\Asztali gép\VizsgaRemek\Forráskód\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\User\OneDrive\Asztali gép\VizsgaRemek\Forráskód\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\User\Source\Repos\malenkijmeloWeb\Web\MalenkijMelo.Web\MalenkijMelo.Web\MalenkijMelo.Web.Client\obj\Debug\net9.0\staticwebassets.build.json

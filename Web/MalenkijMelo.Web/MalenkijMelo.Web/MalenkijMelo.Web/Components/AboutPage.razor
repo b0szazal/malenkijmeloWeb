@@ -1,0 +1,74 @@
+﻿@page "/about"
+@inherits BasePage
+
+
+<MudContainer Class="text-center">
+    @if (IsRoleEmployee)
+    {
+        <h3>Tudnivalók Munkalehetőségek oldalról</h3>
+        <p>Részletek gombra kattintva a megjelenő ablakban tudsz jelentkezni munkákra</p>
+        <p>Munkalehetőségek oldalán található színek:</p>
+        <table class="w-auto m-auto">
+            <thead>
+                <tr class="py-3">
+                    <th>Szín</th>
+                    <th>Leírás</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="rounded-circle my-3" style="width:30px; height:30px; background-color:grey"></div></td>
+                    <td>A publikálóról még nincs értékelés</td>
+                </tr>
+                <tr>
+                    <td><div class="rounded-circle my-3" style="width:30px; height:30px; background-color:black"></div></td>
+                    <td>A publikálóról írt értékelések átlaga legfeljebb 3</td>
+                </tr>
+                <tr class="py-3">
+                    <td><div class="rounded-circle my-3" style="width:30px; height:30px; background-color:red"></div></td>
+                    <td>A jelentkezők száma legalább 100</td>
+                </tr>
+                <tr class="py-3">
+                    <td><div class="rounded-circle my-3" style="width:30px; height:30px; background-color:orange"></div></td>
+                    <td>A jelentkezők száma legalább 10 és kisebb 100-nál</td>
+                </tr>
+                <tr class="py-3">
+                    <td><div class="rounded-circle my-3" style="width:30px; height:30px; background-color:yellow"></div></td>
+                    <td>A munka fizetsége nem pénz</td>
+                </tr>
+                <tr class="py-3">
+                    <td><div class="rounded-circle my-3" style="width:30px; height:30px; background-color:green"></div></td>
+                    <td>
+                        <ol>
+                            <li>
+                                A publikálóról írt értékelések átlaga legalább 3
+                            </li>
+                            <li>
+                                Jelentkezők száma kevesebb mint 10
+                            </li>
+                            <li>
+                                A munka fizetsége pénz
+                            </li>
+                        </ol>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <h3>Tudnivalók Jelentkezéseim oldalról</h3>
+        <p>
+            Mielőtt a munka megtörtént vissza lehet vonni a jelentkezést
+            utána tudod értékelni a munka publikálóját, ha már értékelted akkor módosítani tudod azt
+        </p>
+    }
+    @if (IsRoleEmployer)
+    {
+        <h3>Tudnivalók Munkáim oldalról</h3>
+
+        <p>
+            Az oldalon meg tudod nézni a munkáidat, és azokra jelentkezett felhasználókat és azok értékeléseinek átlagát
+            a jelentkazőket a munka megtörténte után értékelni tudod
+        </p>
+    }
+    <h2 class="text-center">A regisztrációval kijelented hogy 18. életévedet betöltötted és felelősséget vállalsz a cselekedeteidért</h2>
+</MudContainer>

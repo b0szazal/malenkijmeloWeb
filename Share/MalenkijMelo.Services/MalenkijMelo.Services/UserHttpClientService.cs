@@ -65,7 +65,7 @@ namespace MalenkijMelo.Services
         {
             try
             {
-                User? employers = await _httpClient.GetFromJsonAsync<User>($"api/User/email={email}");
+                User? employers = await _httpClient.GetFromJsonAsync<User>($"api/User/GetByEmail?email={email}");
                 return employers ?? new User();
             }
             catch (Exception)
